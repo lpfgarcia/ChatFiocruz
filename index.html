@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia de Uso — ChatFiocruz</title>
+  <style>
+    /* ── Reset & base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #3ab5c0;
+      --teal-dark:  #2a9fab;
+      --teal-light: #e8f7f9;
+      --teal-mid:   #c2eaee;
+      --text:       #1a2228;
+      --text-muted: #5a6a72;
+      --bg:         #ffffff;
+      --bg-alt:     #f4f8f9;
+      --border:     #dde8ea;
+      --shadow:     0 2px 12px rgba(58,181,192,.12);
+      --shadow-lg:  0 6px 28px rgba(58,181,192,.18);
+      --radius:     10px;
+      --radius-lg:  16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    h1, h2, h3 { line-height: 1.25; }
+
+    a { color: var(--teal-dark); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Top nav ────────────────────────────────────────────────── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 24px;
+      height: 54px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+    }
+
+    .topnav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--text);
+      white-space: nowrap;
+      margin-right: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .nav-links a {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: .85rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .nav-links a:hover { background: var(--teal-light); color: var(--teal-dark); text-decoration: none; }
+
+    /* ── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-light) 0%, #fff 60%);
+      padding: 72px 24px 56px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-img {
+      border: none;
+      box-shadow: none;
+      border-radius: var(--radius);
+      display: block;
+    }
+
+    .hero-logo-img {
+      height: 110px;
+      width: auto;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 16px auto 32px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 44px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1.5px solid var(--teal-mid);
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--teal-dark);
+    }
+    .badge .icon { font-size: 1rem; }
+
+    .hero-screenshot {
+      max-width: 860px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ── Section layout ─────────────────────────────────────────── */
+    .section {
+      padding: 72px 24px;
+    }
+    .section.alt { background: var(--bg-alt); }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      background: var(--teal-light);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    /* ── Two-column ─────────────────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    @media (max-width: 700px) {
+      .two-col, .two-col.reverse { grid-template-columns: 1fr; direction: ltr; }
+    }
+
+    .col-text h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .col-text p {
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    /* ── Feature cards ──────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .card:hover { box-shadow: var(--shadow-lg); border-color: var(--teal-mid); }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--teal-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: .92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .card.highlight {
+      border-color: var(--teal);
+      background: var(--teal-light);
+    }
+    .card.highlight .card-icon { background: var(--bg); }
+
+    /* ── Step list ──────────────────────────────────────────────── */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 8px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .step-body p  { color: var(--text-muted); font-size: .95rem; }
+
+    /* ── Screenshot gallery ─────────────────────────────────────── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .gallery-item figcaption {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ── Pill list ──────────────────────────────────────────────── */
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--teal-light);
+      border: 1px solid var(--teal-mid);
+      font-size: .88rem;
+      color: var(--teal-dark);
+      font-weight: 500;
+    }
+
+    /* ── Feature row (icon + text) ──────────────────────────────── */
+    .feature-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .feature-item .fi-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--teal-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .feature-item h4 { font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
+    .feature-item p  { font-size: .88rem; color: var(--text-muted); }
+
+    /* ── Callout box ────────────────────────────────────────────── */
+    .callout {
+      background: var(--teal-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: .93rem;
+      color: var(--text);
+    }
+    .callout strong { color: var(--teal-dark); }
+
+    /* ── Screenshot with caption ────────────────────────────────── */
+    .screenshot-block {
+      margin-top: 32px;
+    }
+    .screenshot-block figcaption {
+      text-align: center;
+      margin-top: 10px;
+      font-size: .88rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Divider ────────────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      background: var(--text);
+      color: #a0b4bb;
+      text-align: center;
+      padding: 40px 24px;
+      font-size: .88rem;
+    }
+    footer strong { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ───────────────────────────────────────────────── -->
+<nav class="topnav">
+  <div class="topnav-logo">
+    <img class="logo-img" src="imgs/logo_dark.png" alt="ChatFiocruz" style="height:28px;width:auto;border-radius:5px;" />
+    <span style="color:var(--text-muted);font-size:.8rem;font-weight:500;">Guia de Uso</span>
+  </div>
+  <div class="nav-links">
+    <a href="#visao-geral">Visão geral</a>
+    <a href="#interface">Interface</a>
+    <a href="#conversa">Iniciar conversa</a>
+    <a href="#modos">Modos de uso</a>
+    <a href="#modelos">Modelos</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#historico">Histórico</a>
+    <a href="#conta">Conta</a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-logo">
+    <img class="logo-img hero-logo-img" src="imgs/logo_light.png" alt="ChatFiocruz" />
+  </div>
+  <p>Assistente virtual inteligente para uso institucional na Fiocruz. Converse, consulte documentos e pesquise publicações científicas.</p>
+
+  <div class="badge-row">
+    <div class="badge"><span class="icon">💬</span> Chat Geral</div>
+    <div class="badge"><span class="icon">📋</span> Compras e Licitações</div>
+    <div class="badge"><span class="icon">🔬</span> Observatório Fiocruz</div>
+  </div>
+
+  <img class="hero-screenshot" src="imgs/tela_inicial.png" alt="Tela inicial do ChatFiocruz" />
+</header>
+
+<!-- ── O que é ───────────────────────────────────────────────────── -->
+<section class="section" id="visao-geral">
+  <div class="section-inner">
+    <span class="section-label">O que é</span>
+    <h2 class="section-title">O ChatFiocruz</h2>
+    <p class="section-sub">
+      Um assistente virtual capaz de responder perguntas, analisar documentos e apoiar suas atividades dentro da Fiocruz. Opera em três modos distintos, cada um otimizado para uma finalidade específica.
+    </p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Chat Geral</h3>
+        <p>Chat de propósito geral com modelos de linguagem de grande porte. Ideal para criar textos, tirar dúvidas, resumir conteúdos e explorar ideias livremente.</p>
+      </div>
+      <div class="card highlight">
+        <div class="card-icon">📋</div>
+        <h3>RAG de Compras e Licitações</h3>
+        <p>Respostas sobre compras e licitações <strong>fundamentadas em documentação</strong> — normas, portarias e legislação aplicável à Fiocruz.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Agente do Observatório</h3>
+        <p>Análise de publicações científicas com dados e referências de fontes. Pesquise artigos da base do Observatório Fiocruz com suporte de IA.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px">
+      <strong>Dica:</strong> O ChatFiocruz também permite enviar mensagens por voz, anexar arquivos para análise e personalizar o comportamento dos modelos de linguagem.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Interface ─────────────────────────────────────────────────── -->
+<section class="section alt" id="interface">
+  <div class="section-inner">
+    <span class="section-label">Interface</span>
+    <h2 class="section-title">Conhecendo a tela</h2>
+    <p class="section-sub">A interface é dividida em duas áreas principais: a barra lateral de histórico e a área central de conversa.</p>
+
+    <div class="two-col" style="margin-bottom:56px">
+      <figure>
+        <img src="imgs/barra_lateral.png" alt="Barra lateral de histórico" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Barra lateral — histórico de conversas agrupado por período</figcaption>
+      </figure>
+      <div class="col-text">
+        <h3>Barra lateral</h3>
+        <p>Localizada à esquerda, exibe o histórico completo de conversas agrupadas em <strong>Hoje</strong>, <strong>Últimos 7 dias</strong> e <strong>Últimos 30 dias</strong>.</p>
+        <p>No topo da barra você encontra três controles:</p>
+        <div class="pill-list">
+          <span class="pill">⊞ Ocultar/exibir painel</span>
+          <span class="pill">🔍 Buscar conversas</span>
+          <span class="pill">✏️ Novo chat</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col reverse">
+      <figure>
+        <img src="imgs/area_chat.png" alt="Área central de chat" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Área central — campo de mensagem e sugestões de perguntas</figcaption>
+      </figure>
+      <div class="col-text">
+        <h3>Área de conversa</h3>
+        <p>Ocupa a maior parte da tela. No centro aparece o logo do ChatFiocruz antes de iniciar uma conversa.</p>
+        <p>Na parte inferior fica a <strong>caixa de mensagem</strong> com ícones de ação e os botões de sugestão de perguntas (<em>starters</em>).</p>
+        <p>O cabeçalho superior traz o seletor de modelo e, à direita, os controles de tema e o menu do usuário.</p>
+      </div>
+    </div>
+
+    <div class="gallery" style="margin-top:48px">
+      <figure class="gallery-item">
+        <img src="imgs/tela_inicial_tema_escuro.png" alt="Tema escuro" />
+        <figcaption>Tema Escuro</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="imgs/tela_inicial_barra_lateral_oculta.png" alt="Barra lateral oculta" />
+        <figcaption>Barra lateral recolhida — mais espaço para a conversa</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Iniciar conversa ──────────────────────────────────────────── -->
+<section class="section" id="conversa">
+  <div class="section-inner">
+    <span class="section-label">Como usar</span>
+    <h2 class="section-title">Iniciando uma conversa</h2>
+    <p class="section-sub">Você pode começar uma nova conversa a qualquer momento ou usar as sugestões de perguntas prontas para explorar o sistema.</p>
+
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Clique em "Novo chat"</h3>
+          <p>No topo da barra lateral, clique no ícone de lápis (✏️) para criar uma nova conversa.</p>
+          <figure class="screenshot-block">
+            <img src="imgs/novo_chat.png" alt="Botão novo chat destacado" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Confirme se houver uma conversa em andamento</h3>
+          <p>Se já existir uma conversa ativa, o sistema pedirá confirmação antes de iniciar um novo chat.</p>
+          <figure class="screenshot-block">
+            <img src="imgs/confirmacao_novo_chat.png" alt="Modal de confirmação de novo chat" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Digite sua pergunta ou use um starter</h3>
+          <p>Escreva diretamente na caixa de mensagem, ou clique em um dos botões de sugestão para começar rapidamente.</p>
+          <figure class="screenshot-block">
+            <img src="imgs/starters.png" alt="Sugestões de perguntas (starters)" />
+          </figure>
+          <div class="callout">
+            <strong>Exemplos de perguntas:</strong><br />
+            "Resuma este texto para mim." &nbsp;·&nbsp;
+            "Explique o que é vigilância em saúde." &nbsp;·&nbsp;
+            "Me ajude a escrever um e-mail para minha equipe."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Modos de uso ───────────────────────────────────────────────── -->
+<section class="section alt" id="modos">
+  <div class="section-inner">
+    <span class="section-label">Bases</span>
+    <h2 class="section-title">Escolhendo o modo de uso</h2>
+    <p class="section-sub">
+      O botão <strong>Bases</strong> na caixa de mensagem permite alternar entre os três modos de operação do ChatFiocruz.
+    </p>
+
+    <div class="two-col" style="margin-bottom:40px">
+      <figure>
+        <img src="imgs/rag_agente.png" alt="Botão Bases" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Clique em "Bases" na barra de ferramentas da mensagem</figcaption>
+      </figure>
+      <figure>
+        <img src="imgs/rag_agente_opcoes.png" alt="Opções de modo: Compras e Licitações e Observatório" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Menu de seleção com os modos disponíveis</figcaption>
+      </figure>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Chat Geral <span style="font-size:.8rem;color:var(--text-muted);font-weight:400">(padrão)</span></h3>
+        <p>Sem base selecionada — o modelo responde livremente com seu conhecimento geral. Ideal para tarefas de escrita, análise e criação de conteúdo.</p>
+      </div>
+      <div class="card highlight">
+        <div class="card-icon">📋</div>
+        <h3>Compras e Licitações</h3>
+        <p>Ativa o <strong>RAG</strong> (Retrieval-Augmented Generation) sobre documentação institucional. As respostas são fundamentadas em normas e legislação sobre compras e licitações da Fiocruz.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Observatório Fiocruz</h3>
+        <p>Ativa o <strong>Agente do Observatório</strong> para análise de publicações científicas com dados e referências de fontes da base do Observatório Fiocruz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Seleção de modelos ─────────────────────────────────────────── -->
+<section class="section" id="modelos">
+  <div class="section-inner">
+    <span class="section-label">Modelos de IA</span>
+    <h2 class="section-title">Escolhendo o modelo</h2>
+    <p class="section-sub">No topo da tela, o seletor de modelos permite escolher qual modelo de linguagem será utilizado na conversa.</p>
+
+    <div class="two-col">
+      <div class="col-text">
+        <h3>Seletor de modelos</h3>
+        <p>Clique no nome do modelo atual (ex: <strong>GPT-5.4 ▼</strong>) no cabeçalho para abrir a lista de modelos disponíveis.</p>
+        <p>Diferentes modelos têm características distintas de velocidade, criatividade e capacidade de raciocínio. Escolha o mais adequado para a tarefa:</p>
+        <div class="pill-list">
+          <span class="pill">⚡ Mais rápido — respostas imediatas</span>
+          <span class="pill">🧠 Mais capaz — tarefas complexas</span>
+          <span class="pill">✍️ Mais criativo — conteúdo textual</span>
+        </div>
+        <div class="callout">
+          <strong>Dica:</strong> Para consultas no RAG de Compras ou no Observatório, modelos com maior capacidade de raciocínio tendem a produzir respostas mais precisas.
+        </div>
+      </div>
+      <figure>
+        <img src="imgs/selecao_modelos.png" alt="Seletor de modelos no cabeçalho" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Clique no modelo atual para alternar</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Recursos da caixa ─────────────────────────────────────────── -->
+<section class="section alt" id="recursos">
+  <div class="section-inner">
+    <span class="section-label">Recursos</span>
+    <h2 class="section-title">Ferramentas da caixa de mensagem</h2>
+    <p class="section-sub">A barra de ferramentas abaixo do campo de texto oferece quatro recursos para enriquecer suas interações.</p>
+
+    <div class="feature-row" style="margin-bottom:48px">
+      <div class="feature-item">
+        <div class="fi-icon">🎙️</div>
+        <div>
+          <h4>Mensagem por voz</h4>
+          <p>Clique no ícone de onda sonora para ditar sua mensagem ao invés de digitá-la.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="fi-icon">📎</div>
+        <div>
+          <h4>Anexar arquivos</h4>
+          <p>Envie documentos para que o modelo analise o conteúdo e responda com base neles.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="fi-icon">⚙️</div>
+        <div>
+          <h4>Configurações do chat</h4>
+          <p>Ajuste temperatura e número máximo de tokens para controlar o estilo das respostas.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="fi-icon">🗃️</div>
+        <div>
+          <h4>Bases</h4>
+          <p>Alterna entre Chat Geral, RAG de Compras e Licitações, e Observatório Fiocruz.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <figure class="gallery-item">
+        <img src="imgs/mensagem_por_audio.png" alt="Ícone de áudio destacado" />
+        <figcaption>Mensagem por voz — ícone de onda sonora</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="imgs/anexar_arquivos.png" alt="Ícone de anexar arquivo destacado" />
+        <figcaption>Anexar arquivos — ícone de clipe</figcaption>
+      </figure>
+    </div>
+
+    <div style="margin-top:48px">
+      <div class="two-col">
+        <figure>
+          <img src="imgs/configuracoes_chat.png" alt="Ícone de configurações destacado" />
+          <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Clique no ícone de engrenagem para abrir as configurações</figcaption>
+        </figure>
+        <div class="col-text">
+          <h3>Painel de Configurações</h3>
+          <p>Ao clicar no ícone de engrenagem (⚙️), um painel abre com dois parâmetros:</p>
+
+          <div class="card" style="margin-top:16px">
+            <h3>🌡️ Temperatura</h3>
+            <p>Controla o nível de <strong>criatividade</strong> das respostas. Valores próximos de 0 geram respostas mais determinísticas e conservadoras. Valores próximos de 1 tornam as respostas mais variadas e criativas.</p>
+          </div>
+          <div class="card" style="margin-top:12px">
+            <h3>📏 Máx. de tokens</h3>
+            <p>Limita o <strong>tamanho máximo</strong> das respostas geradas. Útil para forçar respostas mais curtas e objetivas quando necessário.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="screenshot-block">
+        <img src="imgs/config_chat_max_tokens_temperatura.png" alt="Painel de configurações — temperatura e máx. tokens" />
+        <figcaption>Painel de Configurações com os controles de Temperatura e Máx. de tokens</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Histórico ─────────────────────────────────────────────────── -->
+<section class="section" id="historico">
+  <div class="section-inner">
+    <span class="section-label">Histórico</span>
+    <h2 class="section-title">Gerenciando conversas</h2>
+    <p class="section-sub">Todas as suas conversas ficam salvas e acessíveis na barra lateral, organizadas cronologicamente.</p>
+
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <h3>Retomar uma conversa anterior</h3>
+          <p>Clique em qualquer item da barra lateral para abrir e continuar uma conversa passada. O item selecionado fica destacado com borda verde.</p>
+          <figure class="screenshot-block">
+            <img src="imgs/chat_antigo.png" alt="Conversa anterior selecionada na barra lateral" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <h3>Buscar no histórico</h3>
+          <p>Clique no ícone de lupa (🔍) no topo da barra lateral. Um modal de busca permite encontrar conversas antigas pelo título.</p>
+          <figure class="screenshot-block">
+            <img src="imgs/buscar_chats_modal.png" alt="Modal de busca de conversas" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <h3>Ocultar a barra lateral</h3>
+          <p>Clique no ícone de painel (⊞) para recolher a barra lateral e ganhar mais espaço para a conversa. Clique novamente para exibi-la.</p>
+          <div class="gallery" style="margin-top:20px">
+            <figure class="gallery-item">
+              <img src="imgs/ocultar_barra_lateral.png" alt="Ícone de ocultar barra lateral destacado" />
+              <figcaption>Botão para ocultar a barra lateral</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="imgs/tela_inicial_barra_lateral_oculta.png" alt="Tela com barra lateral oculta" />
+              <figcaption>Interface com a barra lateral recolhida</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Tema ──────────────────────────────────────────────────────── -->
+<section class="section alt">
+  <div class="section-inner">
+    <span class="section-label">Aparência</span>
+    <h2 class="section-title">Alternando o tema</h2>
+    <p class="section-sub">O ChatFiocruz suporta tema claro, escuro e a opção de seguir a preferência do sistema operacional.</p>
+
+    <div class="two-col">
+      <figure>
+        <img src="imgs/mudar_tema_chat.png" alt="Ícone de tema no cabeçalho" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Clique no ícone de sol/lua no canto superior direito</figcaption>
+      </figure>
+      <figure>
+        <img src="imgs/mudar_tema_chat_opcoes.png" alt="Menu de opções de tema" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Escolha entre Tema Claro, Tema Escuro ou Seguir Sistema</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Conta ─────────────────────────────────────────────────────── -->
+<section class="section" id="conta">
+  <div class="section-inner">
+    <span class="section-label">Conta</span>
+    <h2 class="section-title">Menu do usuário</h2>
+    <p class="section-sub">No canto superior direito, o avatar circular com a inicial do seu nome dá acesso ao menu de conta.</p>
+
+    <div class="two-col">
+      <div class="col-text">
+        <h3>Acessando o menu</h3>
+        <p>Clique no avatar (círculo com sua inicial) no cabeçalho. Um pequeno menu exibe o nome do usuário logado e a opção de <strong>Sair</strong>.</p>
+        <div class="callout" style="margin-top:16px">
+          <strong>Para encerrar a sessão:</strong> clique no avatar → clique em <strong>Sair</strong>. Você será redirecionado para a tela de login.
+        </div>
+      </div>
+      <figure>
+        <img src="imgs/botao_usuario_opcao_sair.png" alt="Menu do usuário com opção Sair" />
+        <figcaption style="margin-top:10px;text-align:center;font-size:.88rem;color:var(--text-muted)">Menu do usuário — nome e opção de Sair</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Tutorial rápido ───────────────────────────────────────────── -->
+<section class="section alt">
+  <div class="section-inner">
+    <span class="section-label">Tutorial integrado</span>
+    <h2 class="section-title">Tutorial rápido no próprio sistema</h2>
+    <p class="section-sub">O ChatFiocruz possui um tutorial embutido acessível pelo link <strong>"Conheça o ChatFiocruz"</strong> no canto superior direito da tela.</p>
+
+    <div class="gallery">
+      <figure class="gallery-item">
+        <img src="imgs/tutorial_resumido.png" alt="Link Conheça o ChatFiocruz no cabeçalho" />
+        <figcaption>Acesso ao tutorial pelo cabeçalho</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="imgs/tutorial_resumido_conteudo.png" alt="Conteúdo do tutorial resumido" />
+        <figcaption>Tutorial com capacidades e instruções de uso</figcaption>
+      </figure>
+    </div>
+
+    <div class="callout" style="margin-top:32px">
+      O tutorial cobre as principais funcionalidades do sistema, incluindo os três modos de operação, exemplos de perguntas e instruções de envio de mensagens.
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────────────── -->
+<footer>
+  <p><strong>ChatFiocruz</strong> — Guia de Uso</p>
+  <p style="margin-top:6px">Fundação Oswaldo Cruz &nbsp;·&nbsp; Uso Institucional</p>
+</footer>
+
+</body>
+</html>
