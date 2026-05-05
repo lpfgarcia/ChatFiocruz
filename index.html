@@ -864,5 +864,105 @@
   <p style="margin-top:6px">Fundação Oswaldo Cruz &nbsp;·&nbsp; Uso Institucional</p>
 </footer>
 
+<!-- ── Lightbox ──────────────────────────────────────────────────── -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
+  <button id="lightbox-close" aria-label="Fechar">&times;</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<style>
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(10, 20, 24, .88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    cursor: zoom-out;
+  }
+  #lightbox.open { display: flex; }
+
+  #lightbox-img {
+    max-width: min(92vw, 1100px);
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 24px 80px rgba(0,0,0,.6);
+    cursor: default;
+    animation: lb-in .18s ease;
+  }
+  @keyframes lb-in {
+    from { opacity: 0; transform: scale(.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  #lightbox-close {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    background: rgba(255,255,255,.15);
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    line-height: 1;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+  }
+  #lightbox-close:hover { background: rgba(255,255,255,.28); }
+
+  /* cursor hint on zoomable images */
+  img.zoomable { cursor: zoom-in; }
+</style>
+
+<script>
+  (function () {
+    const lb     = document.getElementById('lightbox');
+    const lbImg  = document.getElementById('lightbox-img');
+    const lbClose = document.getElementById('lightbox-close');
+
+    /* mark all images except logos as zoomable */
+    document.querySelectorAll('img:not(.logo-img)').forEach(function (img) {
+      img.classList.add('zoomable');
+      img.addEventListener('click', function () {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function close() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    /* click on overlay (outside image) closes */
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) close();
+    });
+
+    /* close button */
+    lbClose.addEventListener('click', close);
+
+    /* ESC key closes */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  })();
+</script>
+
 </body>
 </html>
